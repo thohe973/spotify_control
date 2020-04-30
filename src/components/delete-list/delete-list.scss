@@ -25,6 +25,10 @@
   .list-container {
     margin-top: 8px;
     display: flex;
-  }
+    min-height: 24px;
 
+    span {
+      color: $secondary-text;
+    }
+  }
 }

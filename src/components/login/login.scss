@@ -1,0 +1,12 @@
+ @import '../../shared/variables';
+
+.Login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+
+  button {
+    background: $primary;
+  }
+}

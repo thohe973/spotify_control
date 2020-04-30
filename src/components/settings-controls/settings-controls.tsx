@@ -1,14 +1,12 @@
 import React from 'react';
 import './settings-controls.scss';
+import { devicesUrl } from '../../util/urls';
+import { Item } from '../add-item/add-item';
 
-export interface Device {
-  title: string;
-  id: string;
-}
 
 interface State {
   selectedDevice: string | undefined;
-  devices: Device[];
+  devices: Item[];
 }
 
 class SettingsControls extends React.Component<{}, State> {
@@ -17,14 +15,20 @@ class SettingsControls extends React.Component<{}, State> {
     super(props);
     this.state = {
       selectedDevice: '-1',
-      devices: [
-        { title: 'device1', id: '1'}
-      ]
+      devices: []
     }
   }
 
   handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     this.setState({ selectedDevice: event.target.value });
+  }
+
+  handleUpdate = (): void => {
+    fetch(devicesUrl, {
+      method: 'GET'
+    }).then(resp => resp.json()).then(json => {
+      this.setState({ devices: json.devices })
+    });
   }
 
   render() {
@@ -36,9 +40,10 @@ class SettingsControls extends React.Component<{}, State> {
         <select onChange={this.handleChange} value={this.state.selectedDevice}>
           <option value="-1">(Select)</option>
           {this.state.devices.map(device => {
-            return <option key={device.id} value={device.id}>{device.title}</option>
+            return <option key={device.id} value={device.id}>{device.name}</option>
           })}
         </select>
+        <button onClick={this.handleUpdate}>Update</button>
       </div>
     );
   }

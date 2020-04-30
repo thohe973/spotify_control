@@ -23,3 +23,16 @@ select {
   font-family: 'Roboto';
   font-size: 14px;
 }
+
+button {
+  font-size: 14px;
+  height: 34px;
+  width: 140px;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: none;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  font-family: 'Roboto';
+}

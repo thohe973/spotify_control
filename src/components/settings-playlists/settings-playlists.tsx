@@ -1,32 +1,46 @@
 import React from 'react';
 import DeleteList from '../delete-list/delete-list';
 import AddItem, { Item } from '../add-item/add-item';
+import { getPlaylistsUrl } from '../../util/urls';
 
-class SettingsPlaylists extends React.Component<{}> {
+interface State {
+  playlists: Item[];
+  selectedPlaylists: Item[];
+}
 
-  items = [
-    { title: 'Favoriter', id: '0'},
-    { title: 'Discover Weekly', id: '1'},
-  ]
+class SettingsPlaylists extends React.Component<{}, State> {
 
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      playlists: [],
+      selectedPlaylists: []
+    };
+  }
 
   handleDelete = (id: string): void => {
-    console.log('delete', id);
+    this.setState({ selectedPlaylists: this.state.selectedPlaylists.filter(d => d.id !== id) });
   }
 
   handleAdd = (item: Item): void => {
-    console.log('add', item);
+    if (!this.state.selectedPlaylists.find(d => d.id === item.id)) {
+      this.setState({ selectedPlaylists: [...this.state.selectedPlaylists, item] });
+    }
   }
 
   handleUpdate = (): void => {
-    console.log('update');
+    fetch(getPlaylistsUrl, {
+      method: 'GET'
+    }).then(resp => resp.json()).then(json => {
+      this.setState({ playlists: json.items })
+    });
   }
 
   render() {
     return (
       <div className="SettingsPlaylists">
-        <AddItem title="Playlists" items={this.items} onAdd={this.handleAdd} onUpdate={this.handleUpdate}></AddItem>
-        <DeleteList title="Saved Playlists" items={this.items} onDelete={this.handleDelete}></DeleteList>
+        <AddItem title="Playlists" items={this.state.playlists} onAdd={this.handleAdd} onUpdate={this.handleUpdate}></AddItem>
+        <DeleteList title="Saved Playlists" items={this.state.selectedPlaylists} onDelete={this.handleDelete}></DeleteList>
       </div>
     )
   }

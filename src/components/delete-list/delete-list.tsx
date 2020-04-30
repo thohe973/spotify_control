@@ -2,7 +2,7 @@ import React from 'react';
 import './delete-list.scss';
 
 interface Item {
-  title: string;
+  name: string;
   id: string;
 }
 
@@ -35,13 +35,15 @@ const DeleteList: React.FC<ListProps> = (props) => {
     <div className="DeleteList">
       <span>{props.title}</span>
       <div className="list-container">
-        {props.items.map(item =>
-          <DeleteItem
-            title={item.title}
-            id={item.id}
-            onDelete={props.onDelete}
-            key={item.id}>
-          </DeleteItem>)}
+        {props.items.length === 0
+          ? <span>No items added</span>
+          : props.items.map(item =>
+            <DeleteItem
+              title={item.name}
+              id={item.id}
+              onDelete={props.onDelete}
+              key={item.id}>
+            </DeleteItem>)}
       </div>
     </div>
   );

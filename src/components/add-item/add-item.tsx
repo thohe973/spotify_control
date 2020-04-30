@@ -2,7 +2,7 @@ import React from 'react';
 import './add-item.scss';
 
 export interface Item {
-  title: string;
+  name: string;
   id: string;
 }
 
@@ -27,7 +27,6 @@ class AddItem extends React.Component<Props, State> {
   }
 
   handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    console.log(event.target.value)
     this.setState({ selectedPlaylist: event.target.value });
   }
 
@@ -45,7 +44,7 @@ class AddItem extends React.Component<Props, State> {
         <select onChange={this.handleChange} value={this.state.selectedPlaylist}>
           <option value="-1">(Select)</option>
           {this.props.items.map(item => {
-            return <option key={item.id} value={item.id}>{item.title}</option>
+            return <option key={item.id} value={item.id}>{item.name}</option>
           })}
         </select>
         <button className="update" onClick={this.props.onUpdate}>Update</button>
