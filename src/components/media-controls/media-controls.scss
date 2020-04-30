@@ -1,0 +1,16 @@
+@import '../../shared/variables';
+
+.MediaControls {
+  i {
+    font-size: 76px;
+    cursor: pointer;
+  }
+
+  i + i {
+    margin-left: 12px;
+  }
+
+  .prev, .next {
+    color: $secondary-text;
+  }
+}

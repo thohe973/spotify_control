@@ -1,0 +1,25 @@
+@import './shared/variables';
+
+html, body {
+    height: 100%;
+}
+
+body {
+  background-color: $background;
+  color: white;
+  user-select: none;
+  font-family: 'Roboto';
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+}
+
+select {
+  height: 34px;
+  width: 240px;
+  padding-left: 8px;
+  font-family: 'Roboto';
+  font-size: 14px;
+}

@@ -1,0 +1,9 @@
+.TransferList {
+  display: flex;
+  height: 64px;
+  align-items: center;
+
+  .TransferDevice + .TransferDevice {
+    margin-left: 16px;
+  }
+}

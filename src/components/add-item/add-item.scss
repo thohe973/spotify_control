@@ -1,0 +1,38 @@
+@import '../../shared/variables';
+
+.AddItem {
+  .title {
+    margin-bottom: 4px;
+  }
+
+  button {
+    font-size: 14px;
+    height: 34px;
+    width: 140px;
+    text-transform: uppercase;
+    border-radius: 999px;
+    border: none;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    font-family: 'Roboto';
+  }
+
+  .add {
+    background: $primary;
+    margin-left: 24px;
+
+    &:hover {
+      background: $primary-highlight;
+    }
+  }
+
+  .update {
+    background: $secondary;
+    margin-left: 24px;
+
+    &:hover {
+      background: $secondary-highlight;
+    }
+  }
+}

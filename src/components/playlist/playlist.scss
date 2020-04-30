@@ -1,0 +1,73 @@
+@import '../../shared/variables';
+
+.Playlist {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  img {
+    width: 100%;
+  }
+
+  svg {
+    width: 50%;
+    fill: white;
+  }
+
+  .cover-container {
+    position: relative;
+    display: block;
+
+    .play, .shuffle {
+      position: absolute;
+      height: 50%;
+      width: 50%;
+      top: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .play {
+      left: 0;
+      z-index: 1;
+    }
+    .shuffle {
+      left: 50%;
+      z-index: 1;
+    }
+  }
+
+  .playlist-name {
+    font-size: 24px;
+  }
+
+  .shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    // https://larsenwork.com/easing-gradients/#editor
+    background: linear-gradient(
+        to bottom,
+        hsla(0, 0%, 9%, 0) 0%,
+        hsla(0, 0%, 9%, 0.013) 18.7%,
+        hsla(0, 0%, 9%, 0.049) 34.9%,
+        hsla(0, 0%, 9%, 0.104) 48.8%,
+        hsla(0, 0%, 9%, 0.175) 60.6%,
+        hsla(0, 0%, 9%, 0.259) 70.4%,
+        hsla(0, 0%, 9%, 0.352) 78.4%,
+        hsla(0, 0%, 9%, 0.45) 84.8%,
+        hsla(0, 0%, 9%, 0.55) 89.8%,
+        hsla(0, 0%, 9%, 0.648) 93.6%,
+        hsla(0, 0%, 9%, 0.741) 96.3%,
+        hsla(0, 0%, 9%, 0.825) 98.1%,
+        hsla(0, 0%, 9%, 0.896) 99.2%,
+        hsla(0, 0%, 9%, 0.951) 99.8%,
+        hsla(0, 0%, 9%, 0.987) 100%,
+        hsl(0, 0%, 9%) 100%
+      );
+  }
+}

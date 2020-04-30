@@ -1,0 +1,15 @@
+@import '../../shared/variables';
+
+.TransferDevice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 22px;
+
+  i {
+    color: $primary;
+    font-size: 64px;
+    margin-right: 16px;
+  }
+}

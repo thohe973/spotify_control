@@ -1,0 +1,40 @@
+@import '../../shared/variables';
+
+.Settings {
+  flex: 1 1 0;
+
+  .nav {
+    display: flex;
+    background: $secondary;
+    height: 64px;
+    justify-content: space-between;
+    align-items: center;
+
+    div {
+      flex: 1 1 0;
+    }
+
+    i {
+      font-size: 48px;
+      padding-left: 4px;
+    }
+
+    span {
+      font-size: 32px;
+      flex: 1 1 0;
+      text-align: center;
+    }
+  }
+
+  .content {
+    margin: 24px;
+  }
+
+  .DeleteList {
+    margin-top: 24px;
+  }
+
+  .SettingsDevices, .SettingsPlaylists {
+    margin-bottom: 24px;
+  }
+}
