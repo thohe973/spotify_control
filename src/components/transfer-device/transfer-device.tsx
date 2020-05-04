@@ -16,25 +16,29 @@ type DeviceType = 'Computer'
   | 'Automobile'
   | 'Unknown';
 
+export interface Device {
+  id: string;
+  type: DeviceType;
+  name: string;
+}
+
 interface Props {
-  name: string,
-  type: DeviceType,
-  id: string
+  device: Device;
 }
 
 class TransferDevice extends React.Component<Props> {
 
-  icon = this.getIcon(this.props.type)
+  icon = this.getIcon(this.props.device.type)
 
   handleClick = (event: React.MouseEvent): void => {
-    console.log(this.props.id)
+    console.log(this.props.device.id)
   }
 
   render() {
     return (
       <div className="TransferDevice" onClick={this.handleClick}>
         <i className={this.icon}></i>
-        {this.props.name}
+        {this.props.device.name}
       </div >
     );
   }

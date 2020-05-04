@@ -18,13 +18,27 @@ class SettingsDevices extends React.Component<{}, State> {
     };
   }
 
+  componentDidMount() {
+    const selectedDevicesJSON = localStorage.getItem('selectedDevices');
+    if (selectedDevicesJSON) {
+      const parsed = JSON.parse(selectedDevicesJSON);
+      this.setState({
+        selectedDevices: parsed ? parsed : []
+      });
+    }
+  }
+
   handleDelete = (id: string): void => {
-    this.setState({ selectedDevices: this.state.selectedDevices.filter(d => d.id !== id) });
+    const filteredDevices = this.state.selectedDevices.filter(d => d.id !== id);
+    this.setState({ selectedDevices: filteredDevices });
+    localStorage.setItem('selectedDevices', JSON.stringify(filteredDevices));
   }
 
   handleAdd = (item: Item): void => {
     if (!this.state.selectedDevices.find(d => d.id === item.id)) {
-      this.setState({ selectedDevices: [...this.state.selectedDevices, item] });
+      const devices = [...this.state.selectedDevices, item];
+      this.setState({ selectedDevices: devices });
+      localStorage.setItem('selectedDevices', JSON.stringify(devices));
     }
   }
 

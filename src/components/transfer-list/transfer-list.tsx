@@ -1,22 +1,34 @@
 import React from 'react';
 import './transfer-list.scss';
-import TransferDevice from '../transfer-device/transfer-device';
+import TransferDevice, { Device } from '../transfer-device/transfer-device';
 
-class TransferList extends React.Component<{}> {
+interface State {
+  devices: Device[];
+}
 
-  test = [
-    { id: '2', name: 'Nexus 7', type: 'Tablet' },
-    { id: '0', name: 'DESKTOP-B1', type: 'Computer' },
-    { id: '1', name: 'SM-G930F', type: 'Smartphone' },
-  ]
+class TransferList extends React.Component<{}, State> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      devices: []
+    };
+  }
+
+  componentDidMount() {
+    const json = localStorage.getItem('selectedDevices');
+    if (json) {
+      const devices = JSON.parse(json);
+      this.setState({ devices: devices });
+    }
+  }
 
   render() {
     return (
       <div className="TransferList">
-        {this.test.length === 0
+        {this.state.devices.length === 0
           ? <span>Add devices in the settings</span>
-          : this.test.map((t: any) => {
-            return <TransferDevice name={t.name} type={t.type} id={t.id} key={t.id}></TransferDevice>
+          : this.state.devices.map((t: any) => {
+            return <TransferDevice device={t} key={t.id}></TransferDevice>
           })}
       </div>
     );

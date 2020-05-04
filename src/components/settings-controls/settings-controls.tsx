@@ -19,15 +19,29 @@ class SettingsControls extends React.Component<{}, State> {
     }
   }
 
+  componentDidMount() {
+    const deviceJSON = localStorage.getItem('controlDevice');
+    if (deviceJSON) {
+      const device = JSON.parse(deviceJSON);
+      this.setState({
+        selectedDevice: device.id, devices: [device]
+      });
+    }
+  }
+
   handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    this.setState({ selectedDevice: event.target.value });
+    if (event.target.value !== '-1') {
+      this.setState({ selectedDevice: event.target.value });
+      const device = this.state.devices.find(d => d.id === event.target.value) as Item;
+      localStorage.setItem('controlDevice', JSON.stringify(device));
+    }
   }
 
   handleUpdate = (): void => {
     fetch(devicesUrl, {
       method: 'GET'
     }).then(resp => resp.json()).then(json => {
-      this.setState({ devices: json.devices })
+      this.setState({ devices: json.devices });
     });
   }
 

@@ -2,21 +2,47 @@ import React from 'react';
 import './playlist-list.scss';
 import Playlist from '../playlist/playlist';
 
-class PlaylistList extends React.Component<{}> {
+interface Image {
+  height: number;
+  width: number;
+  url: string;
+}
 
-  test = [
-    { id: '0', name: 'Favoriter' },
-    { id: '1', name: 'Discover Weekly' },
-    { id: '2', name: 'Slussen' },
-  ]
+export interface PlaylistJSON {
+  id: string;
+  name: string;
+  uri: string;
+  images: Image[]
+}
+
+interface State {
+  playlists: Playlist[]
+}
+
+class PlaylistList extends React.Component<{}, State> {
+
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      playlists: []
+    };
+  }
+
+  componentDidMount() {
+    const json = localStorage.getItem('selectedPlaylists');
+    if (json) {
+      const playlists = JSON.parse(json);
+      this.setState({ playlists: playlists });
+    }
+  }
 
   render() {
     return (
       <div className="PlaylistList">
-        {this.test.length === 0
+        {this.state.playlists.length === 0
           ? <span>Add playlists in the settings</span>
-          : this.test.map((t: any) => {
-            return <Playlist key={t.id} id={t.id} name={t.name}></Playlist>
+          : this.state.playlists.map((t: any) => {
+            return <Playlist key={t.id} playlist={t}></Playlist>
           })}
       </div>
     );

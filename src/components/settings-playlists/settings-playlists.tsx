@@ -18,13 +18,27 @@ class SettingsPlaylists extends React.Component<{}, State> {
     };
   }
 
+  componentDidMount() {
+    const selectedPlaylistsJSON = localStorage.getItem('selectedPlaylists');
+    if (selectedPlaylistsJSON) {
+      const parsed = JSON.parse(selectedPlaylistsJSON);
+      this.setState({
+        selectedPlaylists: parsed ? parsed : []
+      });
+    }
+  }
+
   handleDelete = (id: string): void => {
-    this.setState({ selectedPlaylists: this.state.selectedPlaylists.filter(d => d.id !== id) });
+    const filteredPlaylists = this.state.selectedPlaylists.filter(d => d.id !== id);
+    this.setState({ selectedPlaylists: filteredPlaylists });
+    localStorage.setItem('selectedPlaylists', JSON.stringify(filteredPlaylists));
   }
 
   handleAdd = (item: Item): void => {
     if (!this.state.selectedPlaylists.find(d => d.id === item.id)) {
-      this.setState({ selectedPlaylists: [...this.state.selectedPlaylists, item] });
+      const playlists = [...this.state.selectedPlaylists, item];
+      this.setState({ selectedPlaylists: playlists });
+      localStorage.setItem('selectedPlaylists', JSON.stringify(playlists));
     }
   }
 
