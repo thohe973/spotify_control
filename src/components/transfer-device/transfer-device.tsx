@@ -1,5 +1,6 @@
 import React from 'react';
 import './transfer-device.scss';
+import { transferUrl } from '../../util/urls';
 
 // Taken from Spotify web api docs
 type DeviceType = 'Computer'
@@ -31,7 +32,7 @@ class TransferDevice extends React.Component<Props> {
   icon = this.getIcon(this.props.device.type)
 
   handleClick = (event: React.MouseEvent): void => {
-    console.log(this.props.device.id)
+    fetch(`${transferUrl}?device_id=${this.props.device.id}`, { method: 'PUT', });
   }
 
   render() {
