@@ -4,7 +4,7 @@ import emptyCover from '../../assets/empty_cover.png';
 import { ReactComponent as ShuffleIcon } from '../../assets/icons/shuffle.svg';
 import { ReactComponent as PlayIcon } from '../../assets/icons/play-outline.svg';
 import { PlaylistJSON } from '../playlist-list/playlist-list';
-import { setShuffleUrl, playPlaylistUrl } from '../../util/urls';
+import { setShuffleUrl, playPlaylistUrl, playPlaylistRecentlyAddedUrl } from '../../util/urls';
 
 
 interface Props {
@@ -13,12 +13,14 @@ interface Props {
 
 class Playlist extends React.Component<Props> {
 
-  play = (event: React.MouseEvent): void => {
-    this.playPlaylist(this.props.playlist.uri, false);
+  play = async (event: React.MouseEvent): Promise<void> => {
+    await fetch(`${setShuffleUrl}?state=false`, { method: 'PUT' });
+    fetch(`${playPlaylistRecentlyAddedUrl}?playlist=${this.props.playlist.id}`, { method: 'PUT'});
   }
 
-  shuffle = (event: React.MouseEvent): void => {
-    this.playPlaylist(this.props.playlist.uri, true);
+  shuffle = async (event: React.MouseEvent): Promise<void> => {
+    await fetch(`${setShuffleUrl}?state=true`, { method: 'PUT' });
+    fetch(`${playPlaylistUrl}?playlist=${this.props.playlist.uri}`, { method: 'PUT'});
   }
 
   getImage = (): string => {
@@ -46,11 +48,6 @@ class Playlist extends React.Component<Props> {
         </span>
       </div >
     );
-  }
-
-  async playPlaylist(uri: string, shuffle: boolean): Promise<void> {
-    await fetch(`${setShuffleUrl}?state=${shuffle}`, { method: 'PUT' });
-    fetch(`${playPlaylistUrl}?playlist=${uri}`, { method: 'PUT'})
   }
 }
 

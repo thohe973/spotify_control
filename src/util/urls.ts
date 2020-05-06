@@ -6,6 +6,7 @@ export const fetchAndSaveTokens = `${apiBase}/fetch-and-save-tokens`;
 export const pauseUrl = `${apiBase}/pause`;
 export const playUrl = `${apiBase}/play`;
 export const playPlaylistUrl = `${apiBase}/play-playlist`;
+export const playPlaylistRecentlyAddedUrl = `${apiBase}/play-playlist-recently-added`;
 export const prevUrl = `${apiBase}/prev`;
 export const nextUrl = `${apiBase}/next`;
 export const devicesUrl = `${apiBase}/devices`;
