@@ -8,5 +8,9 @@
   button {
     background: $secondary;
     margin-left: 24px;
+
+    &:hover {
+      background: $secondary-highlight;
+    }
   }
 }

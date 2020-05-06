@@ -12,4 +12,10 @@
     font-size: 64px;
     margin-right: 16px;
   }
+
+  &:hover {
+    i {
+      color: $primary-highlight;
+    }
+  }
 }

@@ -20,5 +20,9 @@
     font-size: 64px;
     right: 16px;
     color: $secondary;
+
+    &:hover {
+      color: $secondary-highlight;
+    }
   }
 }

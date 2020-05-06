@@ -4,6 +4,10 @@
   i {
     font-size: 76px;
     cursor: pointer;
+
+    &:hover {
+      border-bottom: 3px solid $primary;
+    }
   }
 
   i + i {
