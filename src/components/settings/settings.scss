@@ -5,29 +5,22 @@
 
   .nav {
     display: flex;
-    background: $secondary;
-    height: 64px;
-    justify-content: space-between;
     align-items: center;
-
-    div {
-      flex: 1 1 0;
-    }
+    height: 64px;
 
     i {
-      font-size: 48px;
-      padding-left: 4px;
+      font-size: 24px;
+      margin: 0px 12px 0 20px;
     }
 
     span {
-      font-size: 32px;
-      flex: 1 1 0;
+      font-size: 24px;
       text-align: center;
     }
   }
 
   .content {
-    margin: 24px;
+    margin: 4px 24px;
   }
 
   .DeleteList {

@@ -11,11 +11,8 @@ class Settings extends React.Component {
     return (
       <div className="Settings">
         <div className="nav">
-          <div>
-            <IconLink icon="chevron_left" path="/"></IconLink>
-          </div>
+          <IconLink icon="arrow_back" path="/"></IconLink>
           <span>Settings</span>
-          <div>{/* dummy element for alignment */}</div>
         </div>
         <div className="content">
           <SettingsDevices></SettingsDevices>
