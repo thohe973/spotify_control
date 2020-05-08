@@ -24,7 +24,7 @@ class App extends React.Component<{}> {
 
   render() {
     return (
-      <div className="App" id="App">
+      <div className="App">
         <Router>
           <Switch>
             <Route path="/settings">

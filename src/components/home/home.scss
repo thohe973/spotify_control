@@ -15,8 +15,10 @@
     text-align: center;
   }
 
-  .fullscreen, .IconLink {
+  .IconLink.material-icons {
+    position: absolute;
     font-size: 64px;
+    right: 16px;
     color: #2f2f2f;
 
     @media (hover: hover) {
@@ -25,11 +27,5 @@
         color: $secondary-highlight;
       }
     }
-  }
-
-  .btm-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
 }

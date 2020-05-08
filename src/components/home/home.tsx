@@ -7,20 +7,13 @@ import IconLink from '../icon-link/icon-link';
 
 class Home extends React.Component {
 
-  fullscreen = () => {
-    document.getElementById('App')?.requestFullscreen();
-  }
-
   render() {
     return (
       <div className="Home">
         <TransferList></TransferList>
         <PlaylistList></PlaylistList>
-        <div className="btm-container">
-          <i className="material-icons fullscreen" onClick={this.fullscreen}>crop_free</i>
-          <MediaControls></MediaControls>
-          <IconLink icon="settings" path="/settings"></IconLink>
-        </div>
+        <MediaControls></MediaControls>
+        <IconLink icon="settings" path="/settings"></IconLink>
       </div>
     );
   }
