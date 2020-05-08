@@ -1,12 +1,17 @@
 import React from 'react';
-import './App.scss';
 import Home from './components/home/home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Settings from './components/settings/settings';
 import { loginNeededUrl, fetchAndSaveTokens } from './util/urls';
 import Login from './components/login/login';
+import { ToastContainer, Slide } from 'react-toastify';
+
+import './App.scss';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 class App extends React.Component<{}> {
+
   componentDidMount() {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
@@ -17,7 +22,6 @@ class App extends React.Component<{}> {
       }
     } else {
       window.history.replaceState(null, '', window.location.pathname);
-      console.log('Sending code...');
       this.sendCode(code);
     }
   }
@@ -38,6 +42,7 @@ class App extends React.Component<{}> {
             </Route>
           </Switch>
         </Router>
+        <ToastContainer transition={Slide} closeButton={false} position={'bottom-left'}/>
       </div>
     );
   }

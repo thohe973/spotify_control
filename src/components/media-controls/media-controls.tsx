@@ -1,23 +1,24 @@
 import React from 'react';
 import './media-controls.scss';
 import { pauseUrl, playUrl, nextUrl, prevUrl } from '../../util/urls';
+import { handleError } from '../../util/handleError';
 
 class MediaControls extends React.Component {
 
   play = (): void => {
-    fetch(playUrl, { method: 'PUT' });
+    fetch(playUrl, { method: 'PUT' }).then(handleError);
   }
 
   pause = (): void => {
-    fetch(pauseUrl, { method: 'PUT' });
+    fetch(pauseUrl, { method: 'PUT' }).then(handleError);
   }
 
   next = (): void => {
-    fetch(nextUrl, { method: 'PUT' });
+    fetch(nextUrl, { method: 'PUT' }).then(handleError);
   }
 
   prev = (): void => {
-    fetch(prevUrl, { method: 'PUT' });
+    fetch(prevUrl, { method: 'PUT' }).then(handleError);
   }
 
   render() {

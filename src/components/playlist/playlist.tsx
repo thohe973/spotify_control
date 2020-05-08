@@ -5,6 +5,7 @@ import { ReactComponent as ShuffleIcon } from '../../assets/icons/shuffle.svg';
 import { ReactComponent as PlayIcon } from '../../assets/icons/play-outline.svg';
 import { PlaylistJSON } from '../playlist-list/playlist-list';
 import { setShuffleUrl, playPlaylistUrl, playPlaylistRecentlyAddedUrl } from '../../util/urls';
+import { handleError } from '../../util/handleError';
 
 
 interface Props {
@@ -14,13 +15,13 @@ interface Props {
 class Playlist extends React.Component<Props> {
 
   play = async (event: React.MouseEvent): Promise<void> => {
-    await fetch(`${setShuffleUrl}?state=false`, { method: 'PUT' });
-    fetch(`${playPlaylistRecentlyAddedUrl}?playlist=${this.props.playlist.id}`, { method: 'PUT'});
+    await fetch(`${setShuffleUrl}?state=false`, { method: 'PUT' }).then(handleError);
+    fetch(`${playPlaylistRecentlyAddedUrl}?playlist=${this.props.playlist.id}`, { method: 'PUT'}).then(handleError);
   }
 
   shuffle = async (event: React.MouseEvent): Promise<void> => {
-    await fetch(`${setShuffleUrl}?state=true`, { method: 'PUT' });
-    fetch(`${playPlaylistUrl}?playlist=${this.props.playlist.uri}`, { method: 'PUT'});
+    await fetch(`${setShuffleUrl}?state=true`, { method: 'PUT' }).then(handleError);
+    fetch(`${playPlaylistUrl}?playlist=${this.props.playlist.uri}`, { method: 'PUT'}).then(handleError);
   }
 
   getImage = (): string => {
