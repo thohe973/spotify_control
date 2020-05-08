@@ -14,8 +14,10 @@
     fill: white;
     transition: width .1s;
 
-    &:hover {
-      width: 55%
+    @media (hover: hover) {
+      &:hover {
+        width: 55%
+      }
     }
   }
 

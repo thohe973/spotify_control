@@ -5,8 +5,10 @@
     font-size: 76px;
     cursor: pointer;
 
-    &:hover {
-      border-bottom: 3px solid $primary;
+    @media (hover: hover) {
+      &:hover {
+        border-bottom: 3px solid $primary;
+      }
     }
   }
 

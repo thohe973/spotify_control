@@ -9,8 +9,10 @@
     background: $secondary;
     margin-left: 24px;
 
-    &:hover {
-      background: $secondary-highlight;
+    @media (hover: hover) {
+      &:hover {
+        background: $secondary-highlight;
+      }
     }
   }
 }

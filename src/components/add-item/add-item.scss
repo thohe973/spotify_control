@@ -9,8 +9,10 @@
     background: $primary;
     margin-left: 24px;
 
-    &:hover {
-      background: $primary-highlight;
+    @media (hover: hover) {
+      &:hover {
+        background: $primary-highlight;
+      }
     }
   }
 
@@ -18,8 +20,10 @@
     background: $secondary;
     margin-left: 24px;
 
-    &:hover {
-      background: $secondary-highlight;
+    @media (hover: hover) {
+      &:hover {
+        background: $secondary-highlight;
+      }
     }
   }
 }

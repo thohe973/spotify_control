@@ -13,9 +13,11 @@
     margin-right: 16px;
   }
 
-  &:hover {
-    i {
-      color: $primary-highlight;
+    @media (hover: hover) {
+    &:hover {
+      i {
+        color: $primary-highlight;
+      }
     }
   }
 }

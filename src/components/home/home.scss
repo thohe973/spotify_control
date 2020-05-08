@@ -19,9 +19,11 @@
     font-size: 64px;
     color: #2f2f2f;
 
-    &:hover {
-      cursor: pointer;
-      color: $secondary-highlight;
+    @media (hover: hover) {
+      &:hover {
+        cursor: pointer;
+        color: $secondary-highlight;
+      }
     }
   }
 
