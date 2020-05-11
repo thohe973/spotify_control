@@ -6,6 +6,7 @@ import { ReactComponent as PlayIcon } from '../../assets/icons/play-outline.svg'
 import { PlaylistJSON } from '../playlist-list/playlist-list';
 import { setShuffleUrl, playPlaylistUrl, playPlaylistRecentlyAddedUrl } from '../../util/urls';
 import { handleError } from '../../util/handleError';
+import { getControlDeviceId } from '../../util/local-storage';
 
 
 interface Props {
@@ -16,12 +17,14 @@ class Playlist extends React.Component<Props> {
 
   play = async (event: React.MouseEvent): Promise<void> => {
     await fetch(`${setShuffleUrl}?state=false`, { method: 'PUT' }).then(handleError);
-    fetch(`${playPlaylistRecentlyAddedUrl}?playlist=${this.props.playlist.id}`, { method: 'PUT'}).then(handleError);
+    const query = `?playlist=${this.props.playlist.id}${this.getDeviceQuery()}`;
+    fetch(`${playPlaylistRecentlyAddedUrl}${query}`, { method: 'PUT'}).then(handleError);
   }
 
   shuffle = async (event: React.MouseEvent): Promise<void> => {
     await fetch(`${setShuffleUrl}?state=true`, { method: 'PUT' }).then(handleError);
-    fetch(`${playPlaylistUrl}?playlist=${this.props.playlist.uri}`, { method: 'PUT'}).then(handleError);
+    const query = `?playlist=${this.props.playlist.uri}${this.getDeviceQuery()}`;
+    fetch(`${playPlaylistUrl}${query}`, { method: 'PUT'}).then(handleError);
   }
 
   getImage = (): string => {
@@ -49,6 +52,14 @@ class Playlist extends React.Component<Props> {
         </span>
       </div >
     );
+  }
+
+  getDeviceQuery(): string {
+    const deviceId = getControlDeviceId();
+    if (deviceId) {
+      return `&device_id=${deviceId}`;
+    }
+    return '';
   }
 }
 

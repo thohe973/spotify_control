@@ -49,7 +49,7 @@ class SettingsControls extends React.Component<{}, State> {
     return (
       <div className="SettingsControls">
         <div className="title">
-          Device For Media Controls
+          Device For Playlist Covers
         </div>
         <select onChange={this.handleChange} value={this.state.selectedDevice}>
           <option value="-1">(Select)</option>
