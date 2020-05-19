@@ -5,18 +5,15 @@ import MediaControls from '../media-controls/media-controls';
 import './home.scss';
 import IconLink from '../icon-link/icon-link';
 
-class Home extends React.Component {
-
-  render() {
-    return (
-      <div className="Home">
-        <TransferList></TransferList>
-        <PlaylistList></PlaylistList>
-        <MediaControls></MediaControls>
-        <IconLink icon="settings" path="/settings"></IconLink>
-      </div>
-    );
-  }
+const Home: React.FC = () => {
+  return (
+    <div className="Home">
+      <TransferList></TransferList>
+      <PlaylistList></PlaylistList>
+      <MediaControls></MediaControls>
+      <IconLink icon="settings" path="/settings"></IconLink>
+    </div>
+  );
 }
 
 export default Home;

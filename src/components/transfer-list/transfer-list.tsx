@@ -1,38 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './transfer-list.scss';
 import TransferDevice, { Device } from '../transfer-device/transfer-device';
 
-interface State {
-  devices: Device[];
-}
+const TransferList: React.FC = () => {
+  const [devices, setDevices] = useState<Device[]>([]);
 
-class TransferList extends React.Component<{}, State> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      devices: []
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const json = localStorage.getItem('selectedDevices');
     if (json) {
       const devices = JSON.parse(json);
-      this.setState({ devices: devices });
+      setDevices(devices);
     }
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className="TransferList">
-        {this.state.devices.length === 0
-          ? <span>Add devices in the settings</span>
-          : this.state.devices.map((t: any) => {
-            return <TransferDevice device={t} key={t.id}></TransferDevice>
-          })}
-      </div>
-    );
-  }
+  return (
+    <div className="TransferList">
+      {devices.length === 0
+        ? <span>Add devices in the settings</span>
+        : devices.map((t: any) => {
+          return <TransferDevice device={t} key={t.id}></TransferDevice>
+        })}
+    </div>
+  );
 }
 
 export default TransferList;

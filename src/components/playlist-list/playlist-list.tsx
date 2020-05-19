@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './playlist-list.scss';
 import Playlist from '../playlist/playlist';
 
@@ -15,38 +15,26 @@ export interface PlaylistJSON {
   images: Image[]
 }
 
-interface State {
-  playlists: Playlist[]
-}
+const PlaylistList: React.FC = () => {
+  const [playlists, setPlaylists] = useState<PlaylistJSON[]>([]);
 
-class PlaylistList extends React.Component<{}, State> {
-
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      playlists: []
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const json = localStorage.getItem('selectedPlaylists');
     if (json) {
       const playlists = JSON.parse(json);
-      this.setState({ playlists: playlists });
+      setPlaylists(playlists);
     }
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className="PlaylistList">
-        {this.state.playlists.length === 0
-          ? <span>Add playlists in the settings</span>
-          : this.state.playlists.map((t: any) => {
-            return <Playlist key={t.id} playlist={t}></Playlist>
-          })}
-      </div>
-    );
-  }
+  return (
+    <div className="PlaylistList">
+      {playlists.length === 0
+        ? <span>Add playlists in the settings</span>
+        : playlists.map(t => {
+          return <Playlist key={t.id} playlist={t}></Playlist>
+        })}
+    </div>
+  );
 }
 
 export default PlaylistList;

@@ -1,63 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DeleteList from '../delete-list/delete-list';
 import AddItem, { Item } from '../add-item/add-item';
 import { getPlaylistsUrl } from '../../util/urls';
 
-interface State {
-  playlists: Item[];
-  selectedPlaylists: Item[];
-}
+const SettingsPlaylists: React.FC = () => {
+  const [playlists, setPlaylists] = useState<Item[]>([]);
+  const [selectedPlaylists, setSelectedPlaylists] = useState<Item[]>([]);
 
-class SettingsPlaylists extends React.Component<{}, State> {
-
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      playlists: [],
-      selectedPlaylists: []
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const selectedPlaylistsJSON = localStorage.getItem('selectedPlaylists');
     if (selectedPlaylistsJSON) {
       const parsed = JSON.parse(selectedPlaylistsJSON);
-      this.setState({
-        selectedPlaylists: parsed ? parsed : []
-      });
+      setSelectedPlaylists(parsed ? parsed : []);
     }
-  }
+  }, []);
 
-  handleDelete = (id: string): void => {
-    const filteredPlaylists = this.state.selectedPlaylists.filter(d => d.id !== id);
-    this.setState({ selectedPlaylists: filteredPlaylists });
+  const handleDelete = (id: string): void => {
+    const filteredPlaylists = selectedPlaylists.filter(d => d.id !== id);
+    setSelectedPlaylists(filteredPlaylists);
     localStorage.setItem('selectedPlaylists', JSON.stringify(filteredPlaylists));
   }
 
-  handleAdd = (item: Item): void => {
-    if (!this.state.selectedPlaylists.find(d => d.id === item.id)) {
-      const playlists = [...this.state.selectedPlaylists, item];
-      this.setState({ selectedPlaylists: playlists });
+  const handleAdd = (item: Item): void => {
+    if (!selectedPlaylists.find(d => d.id === item.id)) {
+      const playlists = [...selectedPlaylists, item];
+      setSelectedPlaylists(playlists);
       localStorage.setItem('selectedPlaylists', JSON.stringify(playlists));
     }
   }
 
-  handleUpdate = (): void => {
+  const handleUpdate = (): void => {
     fetch(getPlaylistsUrl, {
       method: 'GET'
     }).then(resp => resp.json()).then(json => {
-      this.setState({ playlists: json.items })
+      setPlaylists(json.items);
     });
   }
 
-  render() {
-    return (
-      <div className="SettingsPlaylists">
-        <AddItem title="Playlists" items={this.state.playlists} onAdd={this.handleAdd} onUpdate={this.handleUpdate}></AddItem>
-        <DeleteList title="Saved Playlists" items={this.state.selectedPlaylists} onDelete={this.handleDelete}></DeleteList>
-      </div>
-    )
-  }
+  return (
+    <div className="SettingsPlaylists">
+      <AddItem title="Playlists" items={playlists} onAdd={handleAdd} onUpdate={handleUpdate}></AddItem>
+      <DeleteList title="Saved Playlists" items={selectedPlaylists} onDelete={handleDelete}></DeleteList>
+    </div>
+  );
 }
 
 export default SettingsPlaylists;

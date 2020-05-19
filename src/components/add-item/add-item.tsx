@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './add-item.scss';
 
 export interface Item {
@@ -13,45 +13,33 @@ interface Props {
   onAdd: (item: Item) => void;
 }
 
-interface State {
-  selectedPlaylist: string | undefined;
-}
+const AddItem: React.FC<Props> = (props) => {
+  const [selectedPlaylist, setSelectedPlaylist] = useState('-1');
 
-class AddItem extends React.Component<Props, State> {
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      selectedPlaylist: '-1'
-    };
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    setSelectedPlaylist(event.target.value);
   }
 
-  handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    this.setState({ selectedPlaylist: event.target.value });
-  }
-
-  handleAdd = (): void => {
-    if (this.state.selectedPlaylist !== '-1') {
-      const item = this.props.items.find(x => x.id === this.state.selectedPlaylist);
-      this.props.onAdd(item as Item);
+  const handleAdd = (): void => {
+    if (selectedPlaylist !== '-1') {
+      const item = props.items.find(x => x.id === selectedPlaylist);
+      props.onAdd(item as Item);
     }
   }
 
-  render() {
-    return (
-      <div className="AddItem">
-        <div className="title">{this.props.title}</div>
-        <select onChange={this.handleChange} value={this.state.selectedPlaylist}>
-          <option value="-1">(Select)</option>
-          {this.props.items.map(item => {
-            return <option key={item.id} value={item.id}>{item.name}</option>
-          })}
-        </select>
-        <button className="update" onClick={this.props.onUpdate}>Update</button>
-        <button className="add" onClick={this.handleAdd}>Add</button>
-      </div>
-    );
-  }
+  return (
+    <div className="AddItem">
+      <div className="title">{props.title}</div>
+      <select onChange={handleChange} value={selectedPlaylist}>
+        <option value="-1">(Select)</option>
+        {props.items.map(item => {
+          return <option key={item.id} value={item.id}>{item.name}</option>
+        })}
+      </select>
+      <button className="update" onClick={props.onUpdate}>Update</button>
+      <button className="add" onClick={handleAdd}>Add</button>
+    </div>
+  );
 }
 
 export default AddItem;

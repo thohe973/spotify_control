@@ -3,34 +3,32 @@ import './media-controls.scss';
 import { pauseUrl, playUrl, nextUrl, prevUrl } from '../../util/urls';
 import { handleError } from '../../util/handleError';
 
-class MediaControls extends React.Component {
+const MediaControls: React.FC = () => {
 
-  play = (): void => {
+  const play = (): void => {
     fetch(playUrl, { method: 'PUT' }).then(handleError);
   }
 
-  pause = (): void => {
+  const pause = (): void => {
     fetch(pauseUrl, { method: 'PUT' }).then(handleError);
   }
 
-  next = (): void => {
+  const next = (): void => {
     fetch(nextUrl, { method: 'PUT' }).then(handleError);
   }
 
-  prev = (): void => {
+  const prev = (): void => {
     fetch(prevUrl, { method: 'PUT' }).then(handleError);
   }
 
-  render() {
-    return (
-      <div className="MediaControls">
-        <i onClick={this.prev} className="material-icons prev">skip_previous</i>
-        <i onClick={this.play} className="material-icons">play_arrow</i>
-        <i onClick={this.pause} className="material-icons">pause</i>
-        <i onClick={this.next} className="material-icons next">skip_next</i>
-      </div>
-    );
-  }
+  return (
+    <div className="MediaControls">
+      <i onClick={prev} className="material-icons prev">skip_previous</i>
+      <i onClick={play} className="material-icons">play_arrow</i>
+      <i onClick={pause} className="material-icons">pause</i>
+      <i onClick={next} className="material-icons next">skip_next</i>
+    </div>
+  );
 }
 
 export default MediaControls;

@@ -28,34 +28,31 @@ interface Props {
   device: Device;
 }
 
-class TransferDevice extends React.Component<Props> {
+const TransferDevice: React.FC<Props> = (props) => {
+  const icon = getIcon(props.device.type)
 
-  icon = this.getIcon(this.props.device.type)
-
-  handleClick = (event: React.MouseEvent): void => {
-    fetch(`${transferUrl}?device_id=${this.props.device.id}`, { method: 'PUT', }).then(handleError);
+  const handleClick = (event: React.MouseEvent): void => {
+    fetch(`${transferUrl}?device_id=${props.device.id}`, { method: 'PUT', }).then(handleError);
   }
 
-  render() {
-    return (
-      <div className="TransferDevice" onClick={this.handleClick}>
-        <i className={this.icon}></i>
-        {this.props.device.name}
-      </div >
-    );
-  }
+  return (
+    <div className="TransferDevice" onClick={handleClick}>
+      <i className={icon}></i>
+      {props.device.name}
+    </div >
+  );
+}
 
-  getIcon(type: DeviceType): string {
-    switch (type) {
-      case 'Computer':
-        return 'las la-desktop';
-      case 'Smartphone':
-        return 'las la-mobile';
-      case 'Tablet':
-        return 'las la-tablet';
-      default:
-        return 'las la-desktop';
-    }
+const getIcon = (type: DeviceType): string => {
+  switch (type) {
+    case 'Computer':
+      return 'las la-desktop';
+    case 'Smartphone':
+      return 'las la-mobile';
+    case 'Tablet':
+      return 'las la-tablet';
+    default:
+      return 'las la-desktop';
   }
 }
 

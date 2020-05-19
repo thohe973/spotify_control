@@ -1,63 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DeleteList from '../delete-list/delete-list';
 import AddItem, { Item } from '../add-item/add-item';
 import { devicesUrl } from '../../util/urls';
 
-interface State {
-  devices: Item[];
-  selectedDevices: Item[];
-}
 
-class SettingsDevices extends React.Component<{}, State> {
+const SettingsDevices: React.FC = () => {
+  const [devices, setDevices] = useState<Item[]>([]);
+  const [selectedDevices, setSelectedDevices] = useState<Item[]>([]);
 
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      devices: [],
-      selectedDevices: []
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const selectedDevicesJSON = localStorage.getItem('selectedDevices');
     if (selectedDevicesJSON) {
       const parsed = JSON.parse(selectedDevicesJSON);
-      this.setState({
-        selectedDevices: parsed ? parsed : []
-      });
+      setSelectedDevices(parsed ? parsed : []);
     }
-  }
+  }, []);
 
-  handleDelete = (id: string): void => {
-    const filteredDevices = this.state.selectedDevices.filter(d => d.id !== id);
-    this.setState({ selectedDevices: filteredDevices });
+  const handleDelete = (id: string): void => {
+    const filteredDevices = selectedDevices.filter(d => d.id !== id);
+    setSelectedDevices(filteredDevices);
     localStorage.setItem('selectedDevices', JSON.stringify(filteredDevices));
   }
 
-  handleAdd = (item: Item): void => {
-    if (!this.state.selectedDevices.find(d => d.id === item.id)) {
-      const devices = [...this.state.selectedDevices, item];
-      this.setState({ selectedDevices: devices });
+  const handleAdd = (item: Item): void => {
+    if (!selectedDevices.find(d => d.id === item.id)) {
+      const devices = [...selectedDevices, item];
+      setSelectedDevices(devices);
       localStorage.setItem('selectedDevices', JSON.stringify(devices));
     }
   }
 
-  handleUpdate = (): void => {
+  const handleUpdate = (): void => {
     fetch(devicesUrl, {
       method: 'GET'
     }).then(resp => resp.json()).then(json => {
-      this.setState({ devices: json.devices })
+      setDevices(json.devices);
     });
   }
 
-  render() {
-    return (
-      <div className="SettingsDevices">
-        <AddItem title="Devices" items={this.state.devices} onAdd={this.handleAdd} onUpdate={this.handleUpdate}></AddItem>
-        <DeleteList title="Saved Devices" items={this.state.selectedDevices} onDelete={this.handleDelete}></DeleteList>
-      </div>
-    )
-  }
+  return (
+    <div className="SettingsDevices">
+      <AddItem title="Devices" items={devices} onAdd={handleAdd} onUpdate={handleUpdate}></AddItem>
+      <DeleteList title="Saved Devices" items={selectedDevices} onDelete={handleDelete}></DeleteList>
+    </div>
+  );
 }
 
 export default SettingsDevices;
