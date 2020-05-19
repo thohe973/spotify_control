@@ -15,14 +15,14 @@ interface Props {
 
 const Playlist: React.FC<Props> = (props) => {
 
-  const play = async (event: React.MouseEvent): Promise<void> => {
-    await fetch(`${setShuffleUrl}?state=false`, { method: 'PUT' }).then(handleError);
+  const play = async (): Promise<void> => {
+    await fetch(`${setShuffleUrl}?state=false${getDeviceQuery()}`, { method: 'PUT' }).then(handleError);
     const query = `?playlist=${props.playlist.id}${getDeviceQuery()}`;
     fetch(`${playPlaylistRecentlyAddedUrl}${query}`, { method: 'PUT' }).then(handleError);
   }
 
-  const shuffle = async (event: React.MouseEvent): Promise<void> => {
-    await fetch(`${setShuffleUrl}?state=true`, { method: 'PUT' }).then(handleError);
+  const shuffle = async (): Promise<void> => {
+    await fetch(`${setShuffleUrl}?state=true${getDeviceQuery()}`, { method: 'PUT' }).then(handleError);
     const query = `?playlist=${props.playlist.uri}${getDeviceQuery()}`;
     fetch(`${playPlaylistUrl}${query}`, { method: 'PUT' }).then(handleError);
   }
